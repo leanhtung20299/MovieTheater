@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Ticket</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/BookingTicket/ShowtimeViews.css}" />
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/BookingTicket/BookingTicket.css}" />
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/BookingTicket/BookingTicketInfomation.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="main-container" style="background-color: rgb(241, 239, 239); margin: 15px 15px 0px 15px; padding-bottom: 30px;">
+        <div class="row-Custom">
+            <b style="margin-left: 20px;">Select seat quantity:</b>
+            <div class="number" style="display: inline;">
+                <span class="minus">-</span> <input class="input" type="text" id="quantityBooking" value="1" /> <span class="plus">+</span>
+            </div>
+        </div>
+
+        <div id="movieId" hidden th:text="${movieId}">...</div>
+        <div id="scheduleId" hidden th:text="${scheduleId}">...</div>
+
+        <div class="plane" style="margin-left: 40%;">
+            <ol class="cabin fuselage">
+                <li class="row-Custom row--1">
+                    <ol class="seats" type="A">
+                        <th:block th:each="seat,flagIndex : ${listSeats}">
+
+                            <th:block th:if="${flagIndex.index!=0 && flagIndex.index%6==0}">
+                                <li class="row-Custom row--1">
+                                    <ol class="seats" type="A">
+                            </th:block>
+
+                            <th:block th:if="${seat.seatType == 2 && seat.statusBooking ==1}">
+
+                                <li class="seat"><input type="checkbox" /> <label th:text="${seat.seatRow +' '+ seat.seatColumn}" class="seat-normal seat-select" th:id="${seat.seatId}">...</label></li>
+
+                            </th:block>
+                            <th:block th:if="${seat.seatType == 1 && seat.statusBooking ==1}">
+
+                                <li class="seat"><input type="checkbox" /> <label th:text="${seat.seatRow +' '+ seat.seatColumn} " class="seat-upgrade seat-select" th:id="${seat.seatId}">...</label></li>
+
+                            </th:block>
+
+                            <th:block th:if="${seat.statusBooking == 0} ">
+
+                                <li class="seat"><input type="checkbox" /> <label th:text="${seat.seatRow +' '+ seat.seatColumn} " class="seat-sode" th:id="${seat.seatId}">...</label></li>
+
+                            </th:block>
+
+                            <th:block th:if="${(flagIndex.index+1) %6==0} ">
+                                <th:block th:utext="${closetag} ">...</th:block>
+                            </th:block>
+                        </th:block>
+
+                        </ol>
+        </div>
+
+        <div>
+            <div style="margin-left: 46%; margin-top: 3%; ">
+                <h4>Screen</h4>
+            </div>
+            <hr style="border-top: 4px solid #bcb7b7; width: 50%; margin-right: 25%; " />
+            <div class="row " style="margin-left: 26%; ">
+                <div class="col-sm-2 " style="padding-right: 0px !important; ">
+                    <label style="background-color: #19a122; width: 15px; height: 15px; margin-bottom: 0px; "></label>
+                    <span style="display: inline; margin-left: 10px; ">Seat is
+						selecting</span>
+                </div>
+                <div class="col-sm-2 " style="padding-right: 0px !important; margin-left: 25px; ">
+                    <label style="background-color: #a11920; width: 15px; height: 15px; margin-bottom: 0px; "></label>
+                    <span style="display: inline; margin-left: 10px; ">Seat is
+						sold</span>
+                </div>
+                <div class="col-sm-2 " style="padding-right: 0px !important; ">
+                    <label style="background-color: #d0d4d1; width: 15px; height: 15px; margin-bottom: 0px; "></label>
+                    <span style="display: inline; margin-left: 10px; ">Seat can
+						choose</span>
+                </div>
+                <div class="col-sm-2 " style="padding-right: 0px !important; ">
+                    <label style="background-color: #246bbd; width: 15px; height: 15px; margin-bottom: 0px; "></label>
+                    <span style="display: inline; margin-left: 10px; ">Seat VIP </span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="container mt-4 ">
+        <div class="row no-gutters ">
+
+
+            <div class="col-md-4 offset-md-9 container-btn ">
+
+
+                <div>
+                    <button type="button " class="btn btn-primary " id="reload" style="margin-right: 20px; ">
+                       <!--  <i class="fas fa-check "></i> -->
+                         Back</button>
+                    <button type="button " class="btn btn-primary" id="paymentBooking">
+                     <!--    <i class="fas fa-check "> -->
+                         Payment </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            var listSeats = JSON.parse(localStorage.getItem('listSeats'));
+            var BookingSeatsDTO = JSON.parse(localStorage.getItem('BookingSeatsDTO'));
+            if (listSeats != null) {
+                for (let indexSeat = 0; indexSeat < listSeats.length; indexSeat++) {
+                    if ($('#' + listSeats[indexSeat]).hasClass('seat-sode') == false) {
+                        $('#' + listSeats[indexSeat]).addClass('seat-Bookingselect');
+                    }
+                }
+            }
+
+            $('#reload').click(function() {
+                window.location.href = "/booking-ticket";
+                sessionStorage.removeItem("IndexDayPanigation");
+            });
+
+
+        });
+    </script>
+
+    <script type="text/javascript " th:src="@{/js/BookingTicket/BookingTicket.js} "></script>
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Show time view</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- <script src='main.js'></script> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/BookingTicket/ShowtimeViews.css}" />
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/BookingTicket/BookingTicketInfomation.css}" />
+
+</head>
+
+<body>
+    <div id="status" hidden th:text="${status}"></div>
+    <div th:text="${date}" id="date" hidden>...</div>
+    <!-- <div class="icon-bar">
+        <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+        <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+        <a href="#" class="google"><i class="fa fa-google"></i></a>
+        <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+        <a href="#" class="youtube"><i class="fa fa-youtube"></i></a>
+    </div> -->
+    <div class="container-fluid " style="background-color: rgb(241, 239, 239);">
+        <div class="row main1-container">
+            <div class="col-sm-12">
+                <h2 style="text-align: center;">SHOWTIMES</h2>
+                <!-- <label style="background-color:lavender ; width: 100%;"> grid col-12 </label> -->
+
+                <div style="margin-top: 45px !important; margin-left: 100px;">
+                    <div style="margin-top: 45px !important;">
+                        <th:block th:each="showDates : ${listDate}">
+                            <button class="btnShowDate button">
+								<b th:text="${showDates.dateOfMonth}" class="showdateofmonth">...</b>
+								<p th:text="${showDates.day}" class="showdateofweek">...</p>
+							</button>
+                        </th:block>
+                    </div>
+                </div>
+
+                <div style="margin-left: 43% !important; margin-top: 35px">
+                    <button class="btn" style="background-color: white;">&laquo;</button>
+                    <div class="dropdown">
+
+
+                        <button class="dropbtn timeWeekPanigation" style="padding: 8px !important; background-color: white; color: black;">
+						Showtimes 
+						<span th:text="${fristWeek.dayOfMonthNow+'/'+fristWeek.monthNow+ '-' +fristWeek.dayOfMonthTo+'/'+fristWeek.monthTo}" id="timeWeekDisplay" class="timeWeek">...</span>
+					
+							</button>
+                        <div th:class="dropdown-content">
+                            <th:block th:each="showWeek : ${listWeek}">
+                                <a href="#" class="timeWeekPanigation">Showtimes 
+									<span th:text=" ${showWeek.dayOfMonthNow+ '/'+showWeek.monthNow+ '-' +showWeek.dayOfMonthTo+ '/'+showWeek.monthTo} " class="timeWeek">...</span>
+									<!-- <span th:if="${showWeek.yearNow != showWeek.yearTo}" th:text="${'/'+showWeek.yearTo}"></span> -->
+								</a>
+                            </th:block>
+                        </div>
+
+                    </div>
+
+                    <button class="btn " style="background-color: white; ">&raquo;</button>
+                </div>
+
+                <hr>
+
+                <div style="background-color: white; max-width: 80%; margin-left: 10%; " id="renderMovieFilter ">
+                    <th:block th:each="movie : ${listMovie} ">
+                        <div class="row ">
+                            <div class="media ">
+                                <div class="media-left media-top ">
+                                    <img src="https://upload.wikimedia.org/wikipedia/vi/thumb/e/e8/Avengers-Infinity_War-Official-Poster.jpg/220px-Avengers-Infinity_War-Official-Poster.jpg " style="margin-top: 30px; margin-left: 50px; " class="media-object
+                                " width="130px " height="200px ">
+                                </div>
+                                <div class="media-body ">
+                                    <h4 class="media-heading " style="margin-top: 35px; " th:text="${movie.movieNameEnglish} ">...</h4>
+                                    <p th:text="${movie.director} ">...</p>
+                                    <div>
+                                        <th:block th:each="schedules : ${movie.movieSchedules} ">
+
+                                            <a class="btn custon-checkbox-button " for="btn-check-3 " th:text="${schedules.schedule.scheduleTime} " style="color: black " th:href="@{ '/booking-ticket/bookingSeatMovies/'+${movie.movieId}+ '/'+${schedules.schedule.scheduleId} +'/'+${date}} "><b>...</b></a>
+
+                                        </th:block>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+
+                    </th:block>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <script>
+        $(document).ready(function() {
+            if ($("#status").text().length > 0) {
+                alert($("#status").text());
+                $("#status").text("");
+            }
+        });
+    </script>
+
+    <script type="text/javascript " th:src="@{/js/BookingTicket/ShowtimeViews.js} "></script>
+</body>
+
+</html>

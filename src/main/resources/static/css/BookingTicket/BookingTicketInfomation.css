@@ -1,0 +1,45 @@
+ .main-content {
+     width: 100%;
+     height: 100%;
+     background-color: rgb(226, 226, 226);
+     padding-bottom: 20px;
+ }
+ 
+ .title-ticket {
+     text-align: center;
+     margin-bottom: 30px;
+ }
+ 
+ .ticket-info {
+     background-color: white;
+     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+ }
+ 
+ #movie-name {
+     color: rgb(24, 96, 163);
+     font-size: 18px;
+     font-weight: 400;
+     margin-top: 16px;
+ }
+ 
+ td {
+     padding: 5px !important;
+     width: 200px;
+ }
+ 
+ .total-price {
+     color: rgb(9, 141, 9);
+ }
+ 
+ .label-movie {
+     font-weight: bold;
+ }
+ 
+ .container-btn {
+     justify-content: end;
+     display: flex;
+ }
+ 
+ #icon-ticket {
+     transform: rotate(135deg);
+ }
